@@ -12,6 +12,7 @@ var add = document.getElementsByClassName('add')[0];
 var errorField = document.createElement('P');
 errorField.setAttribute('id', 'errors');
 errorField.innerHTML = '';
+form.insertBefore(errorField, form.childNodes[0]);
 
 add.addEventListener('click', function (e) {
     e.preventDefault();
@@ -31,6 +32,10 @@ add.addEventListener('click', function (e) {
         form.reset();
         document.getElementById('errors').innerHTML = '';
     }
+});
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
 });
 
 // HELPER FUNCTIONS
@@ -83,9 +88,6 @@ function addMember(member) {
 }
 
 function displayErrors(errors) {
-    // Display failed validation errors
     var text = errors.join(' ');
-    
     errorField.innerHTML = text;
-    form.insertBefore(errorField, form.childNodes[0]);
 }
