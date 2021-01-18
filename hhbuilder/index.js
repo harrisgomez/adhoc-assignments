@@ -36,6 +36,10 @@ add.addEventListener('click', function (e) {
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
+    
+    var formData = document.querySelector('.household');
+
+    serialize(formData);
 });
 
 // HELPER FUNCTIONS
@@ -90,4 +94,8 @@ function addMember(member) {
 function displayErrors(errors) {
     var text = errors.join(' ');
     errorField.innerHTML = text;
+}
+
+function serialize(formData) {
+    console.log(formData);
 }
