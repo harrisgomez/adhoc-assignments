@@ -9,6 +9,9 @@
 
 var form = document.getElementsByTagName('form')[0];
 var add = document.getElementsByClassName('add')[0];
+var errorField = document.createElement('P');
+errorField.setAttribute('id', 'errors');
+errorField.innerHTML = '';
 
 add.addEventListener('click', function (e) {
     e.preventDefault();
@@ -26,6 +29,7 @@ add.addEventListener('click', function (e) {
     if (isValid(member)) {
         addMember(member);
         form.reset();
+        document.getElementById('errors').innerHTML = '';
     }
 });
 
@@ -34,9 +38,21 @@ add.addEventListener('click', function (e) {
 function isValid(member) {
     // Validate the required form fields
     var isValid = true;
+    var errors = [];
     
-    if (!member.age.length || member.age <= 0 || isNaN(member.age)) isValid = false;
-    if (!member.relationship.length) isValid = false;
+    if (!member.age.length || member.age <= 0 || isNaN(member.age)) {
+        isValid = false;
+        errors.push('Valid age is required.');
+    }
+
+    if (!member.relationship.length) {
+        isValid = false;
+        errors.push('Relationship field required.');
+    }
+
+    if (errors.length > 0) {
+        displayErrors(errors);
+    }
 
     return isValid;
 }
@@ -64,4 +80,12 @@ function addMember(member) {
     item.appendChild(remove);
     item.appendChild(textNode);
     list.appendChild(item);
+}
+
+function displayErrors(errors) {
+    // Display failed validation errors
+    var text = errors.join(' ');
+    
+    errorField.innerHTML = text;
+    form.insertBefore(errorField, form.childNodes[0]);
 }
