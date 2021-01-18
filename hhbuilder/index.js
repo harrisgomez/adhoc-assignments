@@ -8,8 +8,9 @@
 // Serialize the household as JSON upon form submission as a fake trip to the server
 
 var form = document.getElementsByTagName('form')[0];
+var add = document.getElementsByClassName('add')[0];
 
-form.addEventListener('submit', function (e) {
+add.addEventListener('click', function (e) {
     e.preventDefault();
 
     // Construct the member object
@@ -27,6 +28,8 @@ form.addEventListener('submit', function (e) {
         form.reset();
     }
 });
+
+// HELPER FUNCTIONS
 
 function isValid(member) {
     // Validate the required form fields
