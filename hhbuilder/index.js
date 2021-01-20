@@ -77,6 +77,7 @@ FormManager.prototype.handleAddMember = function(e) {
     );
 
     this.householdManager.addMember(member);
+    this.clearForm();
     this.displayMembers();
 };
 
@@ -118,6 +119,10 @@ FormManager.prototype.displayMembers = function() {
         item.prepend(deleteBtn);
         membersList.append(item);
     });
+};
+
+FormManager.prototype.clearForm = function() {
+    this.form.reset();
 };
 
 FormManager.prototype.initializeEvents = (function(formInstance) {
