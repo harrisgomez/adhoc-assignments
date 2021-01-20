@@ -51,12 +51,26 @@ HouseholdManager.prototype.removeMember = function(id) {
 function FormManager() {
     // Form inputs
     this.form = document.querySelector('form');
-    this.ageField = document.querySelector('input[name=age]');
-    this.relationshipField = document.querySelector('select[name=rel]');
-    this.smokerField = document.querySelector('input[name=smoker]');
+    this.ageField = document.querySelector('input[name="age"]');
+    this.relationshipField = document.querySelector('select[name="rel"]');
+    this.smokerField = document.querySelector('input[name="smoker"]');
+
+    // Form buttons
+    this.addBtn = document.querySelector('button.add');
+    this.submitBtn = document.querySelector('button[type="submit"]');
 }
 
-FormManager.prototype.initializeEvents = function() {
-    this.addBtn.onclick = this.handleAddMember.bind(this);
-    this.submitBtn.onclick = this.handleSubmit.bind(this);
+FormManager.prototype.handleAddMember = function(e) {
+    e.preventDefault();
+    console.log('add');
 };
+
+FormManager.prototype.handleSubmit = function(e) {
+    e.preventDefault();
+    console.log('submit');
+}
+
+FormManager.prototype.initializeEvents = (function(formInstance) {
+    formInstance.addBtn.onclick = formInstance.handleAddMember.bind(formInstance);
+    formInstance.submitBtn.onclick = formInstance.handleSubmit.bind(formInstance);
+})(new FormManager);
