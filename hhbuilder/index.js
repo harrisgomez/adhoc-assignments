@@ -43,7 +43,7 @@ HouseholdManager.prototype.addMember = function(member) {
 
 HouseholdManager.prototype.removeMember = function(id) {
     for (var i = 0; i < this.members.length; i++) {
-        if (members[i].id === id) this.splice(i, 1);
+        if (this.members[i].id === parseInt(id)) this.members.splice(i, 1);
     }
 };
 
@@ -85,21 +85,37 @@ FormManager.prototype.handleSubmit = function(e) {
     console.log('submit');
 };
 
+FormManager.prototype.handleDelete = function(e) {
+    var id = e.target.parentNode.getAttribute('id');
+    
+    this.householdManager.removeMember(id);
+    this.displayMembers();
+};
+
 FormManager.prototype.displayMembers = function() {
     // Clear list area on initial render
+    var _this = this;
     var membersList = this.membersList;
     membersList.innerHTML = '';
 
     this.householdManager.members.forEach(function(member) {
         var item = document.createElement('LI');
+        var deleteBtn = document.createElement('BUTTON');
         
+        // Parse the member and render the desired text
         item.setAttribute('id', member.id);
         item.innerHTML = `
             Age: ${member.age}, 
             Relationship: ${member.relationship.charAt(0) + member.relationship.slice(1)}, 
             Smoker: ${member.isSmoker ? 'Yes' : 'No'}
         `;
+
+        // Include delete button for each member instance
+        deleteBtn.innerHTML = 'X';
+        deleteBtn.onclick = _this.handleDelete.bind(_this);
         
+        // Append the items to the DOM
+        item.prepend(deleteBtn);
         membersList.append(item);
     });
 };
