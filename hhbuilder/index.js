@@ -1,4 +1,6 @@
 // your code goes here ...
+
+// Member Class for constructing household members
 function Member(age, relationship, isSmoker) {
     var uniqueId = new Date().getTime();
 
@@ -28,6 +30,9 @@ Member.prototype.validate = function() {
     return errors;
 };
 
+
+// HouseholdManager Class for validating, adding, and removing members
+// This will also be responsible for serializing the final list
 function HouseholdManager() {
     this.members = [];
 }
@@ -41,3 +46,13 @@ HouseholdManager.prototype.removeMember = function(id) {
         if (members[i].id === id) this.splice(i, 1);
     }
 };
+
+// FormManager Class for handling any DOM events
+function FormManager() {
+    // Form inputs
+    this.form = document.querySelector('form');
+    this.ageField = document.querySelector('input[name=age]');
+    this.relationshipField = document.querySelector('select[name=rel]');
+    this.smokerField = document.querySelector('input[name=smoker]');
+
+}
