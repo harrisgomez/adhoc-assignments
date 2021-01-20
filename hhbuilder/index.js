@@ -133,7 +133,7 @@ FormManager.prototype.displayMembers = function() {
         item.setAttribute('id', member.id);
         item.innerHTML = `
             Age: ${member.age}, 
-            Relationship: ${member.relationship.charAt(0) + member.relationship.slice(1)}, 
+            Relationship: ${member.relationship.charAt(0).toUpperCase() + member.relationship.slice(1)}, 
             Smoker: ${member.isSmoker ? 'Yes' : 'No'}
         `;
 
