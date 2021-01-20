@@ -52,6 +52,16 @@ HouseholdManager.prototype.removeMember = function(id) {
     }
 };
 
+HouseholdManager.prototype.serialize = function() {
+    return JSON.stringify(this.members.map(function(member) {
+        return {
+            age: member.age,
+            relationship: member.relationship,
+            isSmoker: member.isSmoker
+        };
+    }), null, 4); // prettifys the json
+};
+
 // FormManager Class for handling any DOM events
 function FormManager() {
     this.householdManager = new HouseholdManager;
@@ -95,7 +105,11 @@ FormManager.prototype.handleAddMember = function(e) {
 
 FormManager.prototype.handleSubmit = function(e) {
     e.preventDefault();
-    console.log('submit');
+    
+    var serialized = this.householdManager.serialize();
+
+    this.debug.innerHTML = serialized;
+    this.debug.style.display = 'block';
 };
 
 FormManager.prototype.handleDelete = function(e) {
