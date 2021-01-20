@@ -87,7 +87,8 @@ FormManager.prototype.handleSubmit = function(e) {
 
 FormManager.prototype.displayMembers = function() {
     // Clear list area on initial render
-    this.membersList.innerHTML = '';
+    var membersList = this.membersList;
+    membersList.innerHTML = '';
 
     this.householdManager.members.forEach(function(member) {
         var item = document.createElement('LI');
@@ -98,7 +99,8 @@ FormManager.prototype.displayMembers = function() {
             Relationship: ${member.relationship.charAt(0) + member.relationship.slice(1)}, 
             Smoker: ${member.isSmoker ? 'Yes' : 'No'}
         `;
-
+        
+        membersList.append(item);
     });
 };
 
