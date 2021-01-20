@@ -49,6 +49,8 @@ HouseholdManager.prototype.removeMember = function(id) {
 
 // FormManager Class for handling any DOM events
 function FormManager() {
+    this.householdManager = new HouseholdManager;
+
     // Form inputs
     this.form = document.querySelector('form');
     this.ageField = document.querySelector('input[name="age"]');
@@ -59,7 +61,8 @@ function FormManager() {
     this.addBtn = document.querySelector('button.add');
     this.submitBtn = document.querySelector('button[type="submit"]');
 
-    // Serialized display
+    // Display areas
+    this.membersList = document.querySelector('ol.household');
     this.debug = document.querySelector('pre.debug');
 }
 
@@ -72,12 +75,19 @@ FormManager.prototype.handleAddMember = function(e) {
         this.relationshipField.value,
         this.smokerField.checked
     );
+
+    this.householdManager.addMember(member);
+    this.displayMembers();
 };
 
 FormManager.prototype.handleSubmit = function(e) {
     e.preventDefault();
     console.log('submit');
-}
+};
+
+FormManager.prototype.displayMembers = function() {
+    this.membersList.innerHTML = 'test';
+};
 
 FormManager.prototype.initializeEvents = (function(formInstance) {
     formInstance.addBtn.onclick = formInstance.handleAddMember.bind(formInstance);
