@@ -86,6 +86,7 @@ FormManager.prototype.handleAddMember = function(e) {
     try {
         this.householdManager.addMember(member);
         this.clearForm();
+        this.clearErrors();
         this.displayMembers();
     } catch(err) {
         this.displayErrors(err);
@@ -138,6 +139,10 @@ FormManager.prototype.clearForm = function() {
 
 FormManager.prototype.displayErrors = function(errors) {
     this.errors.innerHTML = errors.message.join(' ');
+};
+
+FormManager.prototype.clearErrors = function() {
+    this.errors.innerHTML = '';
 };
 
 FormManager.prototype.initializeEvents = (function(formInstance) {
