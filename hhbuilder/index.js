@@ -54,5 +54,9 @@ function FormManager() {
     this.ageField = document.querySelector('input[name=age]');
     this.relationshipField = document.querySelector('select[name=rel]');
     this.smokerField = document.querySelector('input[name=smoker]');
-
 }
+
+FormManager.prototype.initializeEvents = function() {
+    this.addBtn.onclick = this.handleAddMember.bind(this);
+    this.submitBtn.onclick = this.handleSubmit.bind(this);
+};
