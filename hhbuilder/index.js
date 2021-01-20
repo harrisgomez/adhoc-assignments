@@ -38,6 +38,11 @@ function HouseholdManager() {
 }
 
 HouseholdManager.prototype.addMember = function(member) {
+    // Validate the member before adding to members list
+    var errorsArr = member.validate();
+    
+    if (errorsArr.length > 0) throw { message: errorsArr };
+
     this.members.push(member);
 };
 
@@ -64,6 +69,8 @@ function FormManager() {
     // Display areas
     this.membersList = document.querySelector('ol.household');
     this.debug = document.querySelector('pre.debug');
+    this.errors = document.createElement('P');
+    this.form.prepend(this.errors);
 }
 
 FormManager.prototype.handleAddMember = function(e) {
@@ -76,9 +83,13 @@ FormManager.prototype.handleAddMember = function(e) {
         this.smokerField.checked
     );
 
-    this.householdManager.addMember(member);
-    this.clearForm();
-    this.displayMembers();
+    try {
+        this.householdManager.addMember(member);
+        this.clearForm();
+        this.displayMembers();
+    } catch(err) {
+        this.displayErrors(err);
+    }
 };
 
 FormManager.prototype.handleSubmit = function(e) {
@@ -123,6 +134,10 @@ FormManager.prototype.displayMembers = function() {
 
 FormManager.prototype.clearForm = function() {
     this.form.reset();
+};
+
+FormManager.prototype.displayErrors = function(errors) {
+    this.errors.innerHTML = errors.message.join(' ');
 };
 
 FormManager.prototype.initializeEvents = (function(formInstance) {
