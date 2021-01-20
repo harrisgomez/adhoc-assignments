@@ -58,11 +58,20 @@ function FormManager() {
     // Form buttons
     this.addBtn = document.querySelector('button.add');
     this.submitBtn = document.querySelector('button[type="submit"]');
+
+    // Serialized display
+    this.debug = document.querySelector('pre.debug');
 }
 
 FormManager.prototype.handleAddMember = function(e) {
     e.preventDefault();
-    console.log('add');
+
+    // Get input values and instantiate new member
+    var member = new Member(
+        this.ageField.value,
+        this.relationshipField.value,
+        this.smokerField.checked
+    );
 };
 
 FormManager.prototype.handleSubmit = function(e) {
