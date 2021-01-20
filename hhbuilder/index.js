@@ -86,7 +86,20 @@ FormManager.prototype.handleSubmit = function(e) {
 };
 
 FormManager.prototype.displayMembers = function() {
-    this.membersList.innerHTML = 'test';
+    // Clear list area on initial render
+    this.membersList.innerHTML = '';
+
+    this.householdManager.members.forEach(function(member) {
+        var item = document.createElement('LI');
+        
+        item.setAttribute('id', member.id);
+        item.innerHTML = `
+            Age: ${member.age}, 
+            Relationship: ${member.relationship.charAt(0) + member.relationship.slice(1)}, 
+            Smoker: ${member.isSmoker ? 'Yes' : 'No'}
+        `;
+
+    });
 };
 
 FormManager.prototype.initializeEvents = (function(formInstance) {
