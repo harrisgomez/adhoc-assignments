@@ -1,0 +1,7 @@
+1. Run "npm i" in terminal to install dependencies
+2. Run "node index"
+
+This will create an "output.csv" file containing the slcsp rates available for each zipcode.
+The order of the rows will appear exactly the same as they were in the original "slcsp.csv" file, along with the proper headers.
+
+(Note: To preserve the original "slcsp.csv" file, the output is written onto an "output.csv" file instead. This can be fixed on L51 of "index.js")
